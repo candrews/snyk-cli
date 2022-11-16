@@ -4,6 +4,7 @@
     "config:base"
   ],
   "includeForks": true,
+  "platformAutomerge": true,
   "regexManagers": [
     {
       "fileMatch": ["\\.yml$"],
@@ -15,8 +16,7 @@
   "packageRules": [
     {
       "matchUpdateTypes": ["major", "minor", "patch", "pin", "digest"],
-      "automerge": true,
-      "platformAutomerge": true
+      "automerge": true
     }
   ]
 }
