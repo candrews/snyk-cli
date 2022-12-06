@@ -17,9 +17,9 @@ jobs:
         with:
           node-version: "18.x"
       - name: apply patch adding the sbom creation feature
-        run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/a9e32ddf51118cc8d5f945b7345818b2aa4cc911.patch" | git apply
+        run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/dacaab05100004a5c7a2f9035ba82fae00777d1c.patch" | git apply
       - name: apply patch to fix test failures
-        run: curl --fail -Ls "https://github.com/snyk/cli/pull/4201/commits/33363d953d546f1b44187a9365957accf43e0e38.patch" | git apply  # https://github.com/snyk/cli/pull/4201
+        run: curl --fail -Ls "https://github.com/snyk/cli/pull/4201/commits/a6d9158b01fb985c07914c1dbbba6a7716fd907e.patch" | git apply  # https://github.com/snyk/cli/pull/4201
       - name: Install dependencies
         run: npm ci
       - name: build
