@@ -3,7 +3,7 @@ name: Build and Release
 on:
   - push
 env:
-  SNYK_VERSION: "1.1069.0"
+  SNYK_VERSION: "1.1071.0"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: "18.x"
       - name: apply patch adding the sbom creation feature
-        run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/dacaab05100004a5c7a2f9035ba82fae00777d1c.patch" | git apply
+        run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/1526aa914469bf4aea779cc2bf62a05944b811e1.patch" | git apply
       - name: apply patch to fix test failures
         run: curl --fail -Ls "https://github.com/snyk/cli/pull/4201/commits/a6d9158b01fb985c07914c1dbbba6a7716fd907e.patch" | git apply  # https://github.com/snyk/cli/pull/4201
       - name: Install dependencies
