@@ -27,7 +27,7 @@ jobs:
       - name: run unit tests
         run: npm run test:unit
         env:
-          SNYK_TOKEN: "not-used"  # Some tests require a token to be set, but don't actually use it: https://github.com/snyk/cli/issues/4200
+          SNYK_TOKEN: "123456789"  # Some tests require a token to be set. Most don't actually use it: https://github.com/snyk/cli/issues/4200 But, at least one ("succeed testing with correct exit code - and analytics added" in test/jest/unit/snyk-code/snyk-code-test.spec.ts) requires it to be set to "123456789"
           FORCE_COLOR: "1"  # Some tests check for ANSI color codes. chalk doesn't enable color by default for the terminal settings used by GitHub Actions, so color must be forced.
       - name: prepack
         run: npx ts-node ./release-scripts/prune-dependencies-in-packagejson.ts
