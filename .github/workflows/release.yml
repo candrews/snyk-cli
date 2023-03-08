@@ -3,7 +3,7 @@ name: Build and Release
 on:
   - push
 env:
-  SNYK_VERSION: "1.1114.0"
+  SNYK_VERSION: "1.1115.0"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,6 +20,8 @@ jobs:
         run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/da20e6fd5f47322278b52dad61d3069668828f02.patch" | git apply
       - name: Install dependencies
         run: npm ci
+      - name: make pre-build
+        run: make pre-build
       - name: build
         run: npm run build:prod
         env:
