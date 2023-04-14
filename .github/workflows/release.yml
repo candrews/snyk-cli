@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: "18.x"
       - name: apply patch adding the client-sbom creation feature
-        run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/4e13f3890b0da841e68762562cb6f0b363b39cde.patch" | git apply
+        run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/f1386fc2546389b27ced7c81bf44f950034f8eee.patch" | git apply
       - name: Install dependencies
         run: npm ci
       - name: make pre-build
