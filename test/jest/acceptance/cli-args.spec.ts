@@ -66,6 +66,16 @@ describe('cli args', () => {
     expect(code).toEqual(2);
   });
 
+  test('snyk client-sbom command should fail when --file is not specified correctly', async () => {
+    const { code, stdout } = await runSnykCLI(`client-sbom --file package-lock.json`, {
+      env,
+    });
+    expect(stdout).toMatch(
+      'Empty --file argument. Did you mean --file=path/to/file ?',
+    );
+    expect(code).toEqual(2);
+  });
+
   test('snyk version command should show cli version', async () => {
     const { code, stdout } = await runSnykCLI(`--version`, {
       env,
@@ -76,6 +86,14 @@ describe('cli args', () => {
 
   test('snyk test command should fail when --packageManager is not specified correctly', async () => {
     const { code, stdout } = await runSnykCLI(`test --packageManager=hello`, {
+      env,
+    });
+    expect(stdout).toMatch('Unsupported package manager');
+    expect(code).toEqual(2);
+  });
+
+  test('snyk client-sbom command should fail when --packageManager is not specified correctly', async () => {
+    const { code, stdout } = await runSnykCLI(`client-sbom --packageManager=hello`, {
       env,
     });
     expect(stdout).toMatch('Unsupported package manager');
@@ -221,8 +239,28 @@ describe('cli args', () => {
     expect(code).toEqual(2);
   });
 
+  test('snyk client-sbom --exclude without --all-project displays error message', async () => {
+    const { code, stdout } = await runSnykCLI(`client-sbom --exclude=test`, {
+      env,
+    });
+    expect(stdout).toMatch(
+      'The --exclude option can only be use in combination with --all-projects or --yarn-workspaces.',
+    );
+    expect(code).toEqual(2);
+  });
+
   test('snyk test --exclude without any value displays error message', async () => {
     const { code, stdout } = await runSnykCLI(`test --all-projects --exclude`, {
+      env,
+    });
+    expect(stdout).toMatch(
+      'Empty --exclude argument. Did you mean --exclude=subdirectory ?',
+    );
+    expect(code).toEqual(2);
+  });
+
+  test('snyk client-sbom --exclude without any value displays error message', async () => {
+    const { code, stdout } = await runSnykCLI(`client-sbom --all-projects --exclude`, {
       env,
     });
     expect(stdout).toMatch(
@@ -246,7 +284,23 @@ describe('cli args', () => {
     expect(code).toEqual(2);
   });
 
+  test('snyk client-sbom --exclude=path/to/dir displays error message', async () => {
+    const exclude = path.normalize('path/to/dir');
+    const { code, stdout } = await runSnykCLI(
+      `client-sbom --all-projects --exclude=${exclude}`,
+      {
+        env,
+      },
+    );
+
+    expect(stdout).toMatch(
+      'The --exclude argument must be a comma separated list of directory or file names and cannot contain a path.',
+    );
+    expect(code).toEqual(2);
+  });
+
   [
+    'client-sbom',
     'config',
     'ignore',
     'modules',
@@ -321,6 +375,23 @@ describe('cli args', () => {
       });
       expect(stdout).toMatch(
         'Empty --json-file-output argument. Did you mean --file=path/to/output-file.json ?',
+      );
+      expect(code).toEqual(2);
+    });
+  });
+
+  [
+    '--cyclonedx-json-file-output',
+    '--cyclonedx-json-file-output=',
+    '--cyclonedx-json-file-output=""',
+    "--cyclonedx-json-file-output=''",
+  ].forEach((option) => {
+    test(`snyk client-sbom ${option} no value produces error message`, async () => {
+      const { code, stdout } = await runSnykCLI(`client-sbom ${option}`, {
+        env,
+      });
+      expect(stdout).toMatch(
+        'Empty --cyclonedx-json-file-output argument. Did you mean --cyclonedx-json-file-output=path/to/output-file.json ?',
       );
       expect(code).toEqual(2);
     });

@@ -77,6 +77,7 @@ export interface Options {
   'exclude-app-vulns'?: boolean;
   'exclude-node-modules'?: boolean;
   debug?: boolean;
+  'cyclonedex-json'?: boolean;
   sarif?: boolean;
   'group-issues'?: boolean;
   quiet?: boolean;
@@ -274,6 +275,7 @@ export enum SupportedCliCommands {
   help = 'help',
   // config = 'config', // TODO: cleanup `$ snyk config` parsing logic before adding it here
   // auth = 'auth', // TODO: auth does not support argv._ at the moment
+  'client-sbom' = 'client-sbom',
   test = 'test',
   monitor = 'monitor',
   fix = 'fix',
