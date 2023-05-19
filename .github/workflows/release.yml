@@ -3,7 +3,7 @@ name: Build and Release
 on:
   - push
 env:
-  SNYK_VERSION: "1.1157.0"
+  SNYK_VERSION: "1.1159.0"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: "18.x"
       - name: apply patch adding the client-sbom creation feature
-        run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/977a2f0d9203961f38882546775cd26c49f5ace5.patch" | git apply
+        run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/b2fba9e586acb406719afb77eddb3f0b5460ce69.patch" | git apply
       - name: Install dependencies
         run: npm ci
       - name: make pre-build
