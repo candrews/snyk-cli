@@ -29,10 +29,13 @@ jobs:
         run: npm run build:prod
         env:
           NODE_OPTIONS: "--openssl-legacy-provider"  # snyk should upgrade to a newer version of webpack that doesn't require this workaround: https://github.com/snyk/cli/pull/4147
+      - name: Set Snyk token
+        run: node ./bin/snyk config set "api=${TEST_SNYK_TOKEN}" # many tests require the token to be in the config. At least one ("succeed testing with correct exit code - and analytics added" in test/jest/unit/snyk-code/snyk-code-test.spec.ts) requires it to be set to "123456789"
+        env:
+          TEST_SNYK_TOKEN: "123456789"
       - name: run unit tests
         run: npm run test:unit
         env:
-          SNYK_TOKEN: "123456789"  # Some tests require a token to be set. Most don't actually use it: https://github.com/snyk/cli/issues/4200 But, at least one ("succeed testing with correct exit code - and analytics added" in test/jest/unit/snyk-code/snyk-code-test.spec.ts) requires it to be set to "123456789"
           FORCE_COLOR: "1"  # Some tests check for ANSI color codes. chalk doesn't enable color by default for the terminal settings used by GitHub Actions, so color must be forced.
       - name: prepack
         run: npx ts-node ./release-scripts/prune-dependencies-in-packagejson.ts
