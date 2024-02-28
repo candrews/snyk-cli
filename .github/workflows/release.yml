@@ -3,7 +3,7 @@ name: Build and Release
 on:
   - push
 env:
-  SNYK_VERSION: "1.1280.0"
+  SNYK_VERSION: "1.1281.0"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,9 +20,13 @@ jobs:
       - name: apply patch for unexpected-error test expects non-colored output from https://github.com/snyk/cli/pull/4813
         run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/558514ea87baca646d1161748b00e027ef72f321.patch" | git apply
       - name: apply patch adding the client-sbom creation feature
-        run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/a121de8e0082c0e7c906bcf4f3e970df77c6b800.patch" | git apply
+        run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/b3a13942d3e5a837ac7f46f583cfc3550fea8c9a.patch" | git apply
       - name: Install dependencies
         run: npm ci
+      - name: Set version
+        run: |
+          mkdir -p binary-releases
+          echo $SNYK_VERSION > binary-releases/version
       - name: make pre-build
         run: make pre-build
       - name: build
