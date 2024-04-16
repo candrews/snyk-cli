@@ -3,7 +3,7 @@ name: Build and Release
 on:
   - push
 env:
-  SNYK_VERSION: "1.1288.1"
+  SNYK_VERSION: "1.1289.0"
 jobs:
   build:
     runs-on: ubuntu-latest
