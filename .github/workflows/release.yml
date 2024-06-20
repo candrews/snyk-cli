@@ -20,7 +20,7 @@ jobs:
       - name: apply patch for unexpected-error test expects non-colored output from https://github.com/snyk/cli/pull/4813
         run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/558514ea87baca646d1161748b00e027ef72f321.patch" | git apply
       - name: apply patch adding the client-sbom creation feature
-        run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/b3a13942d3e5a837ac7f46f583cfc3550fea8c9a.patch" | git apply
+        run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/b9f165c693609fe3570a85c8fff06ffcd14f2991.patch" | git apply
       - name: Install dependencies
         run: npm ci
       - name: Set version
