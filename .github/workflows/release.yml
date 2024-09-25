@@ -1,7 +1,14 @@
 ---
 name: Build and Release
 on:
-  - push
+  push:
+  workflow_dispatch:
+    inputs:
+      publish-version:
+        description: 'The version to be published to npm. If not specified, defaults to the same version as Snyk.'
+        required: false
+        default: ''
+        type: string
 env:
   SNYK_VERSION: "1.1293.1"
 jobs:
@@ -26,7 +33,7 @@ jobs:
       - name: Set version
         run: |
           mkdir -p binary-releases
-          echo $SNYK_VERSION > binary-releases/version
+          echo ${{ inputs.publish-version && inputs.publish-version || env.SNYK_VERSION }} > binary-releases/version
       - name: make pre-build
         run: make pre-build
       - name: build
@@ -46,7 +53,7 @@ jobs:
       - name: set package name to @candrewsintegralblue/snyk
         run: npm pkg set name="@candrewsintegralblue/snyk"
       - name: set package version
-        run: npm version "$SNYK_VERSION" --no-git-tag-version --workspaces --include-workspace-root
+        run: npm version ${{ inputs.publish-version && inputs.publish-version || env.SNYK_VERSION }} --no-git-tag-version --workspaces --include-workspace-root
       - name: package
         run: npm pack
       - name: upload
