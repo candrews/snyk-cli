@@ -1,21 +1,32 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
   "forkProcessing": "enabled",
   "platformAutomerge": true,
-  "regexManagers": [
+  "customManagers": [
     {
-      "fileMatch": ["\\.yml$"],
-      "matchStrings": ["SNYK_VERSION *: *\"(?<currentValue>.+?)\""],
+      "customType": "regex",
+      "fileMatch": [
+        "\\.yml$"
+      ],
+      "matchStrings": [
+        "SNYK_VERSION *: *\"(?<currentValue>.+?)\""
+      ],
       "depNameTemplate": "snyk",
       "datasourceTemplate": "npm"
     }
   ],
   "packageRules": [
     {
-      "matchUpdateTypes": ["major", "minor", "patch", "pin", "digest"],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch",
+        "pin",
+        "digest"
+      ],
       "automerge": true
     }
   ]
