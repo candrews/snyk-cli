@@ -10,7 +10,7 @@ on:
         default: ''
         type: string
 env:
-  SNYK_VERSION: "1.1295.1"
+  SNYK_VERSION: "1.1295.2"
 jobs:
   build:
     runs-on: ubuntu-latest
