@@ -20,7 +20,7 @@ jobs:
           repository: snyk/cli
           ref: refs/tags/v${{ env.SNYK_VERSION }}
           fetch-depth: 0  # some of the unit tests require repository history
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: "18.x"
 
@@ -68,7 +68,7 @@ jobs:
       - build
     if: github.ref_name == 'master'
     steps:
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: "18.x"
           registry-url: 'https://registry.npmjs.org'
