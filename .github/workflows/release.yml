@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 0  # some of the unit tests require repository history
       - uses: actions/setup-node@v6
         with:
-          node-version: "18.x"
+          node-version: "24.x"
 
       - name: apply patch adding the client-sbom creation feature
         run: curl --fail -Ls "https://github.com/candrews/snyk-cli/commit/a580d045ed09daf42755b4ee4e1ed9b53fbcbeab.patch" | git apply
@@ -70,7 +70,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v6
         with:
-          node-version: "18.x"
+          node-version: "24.x"
           registry-url: 'https://registry.npmjs.org'
       - name: download
         uses: actions/download-artifact@v6
